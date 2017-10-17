@@ -11,6 +11,9 @@ route.on('os.runtime', ServerSent({
     net: require('./action/os/net.js')
 }))
 route.on('sys.runtime', ServerSent(require('./action/sys/runtime.js')))
+
+route.on('cfg.base', JsonOut(require('./action/cfg/time-zone')))
+
 // BrowserRouter
 route.on(/^[\w\/]*$/, () => 'index.html')
 

@@ -1,0 +1,1 @@
+$require('../node_modules/bootstrap-datetime-picker/js/bootstrap-datetimepicker.js')
