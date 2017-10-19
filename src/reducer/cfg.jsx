@@ -2,6 +2,7 @@ import { createAction } from '../redux-actions'
 import { cfg } from './api'
 
 const SET_TIMEZONE_INFO = 'SET_TIMEZONE_INFO'
+const SET_IGB_INFO = 'SET_IGB_INFO'
 
 export default (state, action) => {
     const {
@@ -10,6 +11,8 @@ export default (state, action) => {
     switch (type) {
     case SET_TIMEZONE_INFO:
         return state.setIn(['cfg.timeZone'], payload)
+    case SET_IGB_INFO:
+        return state.setIn(['cfg.igb'], payload)
     }
 }
 
@@ -43,5 +46,25 @@ export const updateTimeZone = (name, value) => (dispatch, getState) => {
             })
         }
         break
+    }
+}
+
+
+const setIGBAction = createAction(SET_IGB_INFO)
+export const setIGB = () => dispatch => {
+    cfg.igb().then(info => dispatch(setIGBAction(info)))
+}
+export const updateIGB = (name, value) => (dispatch) => {
+    switch (name) {
+    case 'inline_mode':
+        return cfg.updateWorkerMod(value).then(res => dispatch(setIGBAction(res)))
+    case 'worker_num':
+        return cfg.updateWorkerNum(value).then(res => dispatch(setIGBAction(res)))
+    case 'session_num':
+        return cfg.updateSessionNum(value).then(res => dispatch(setIGBAction(res)))
+    case 'collector_address':
+        return cfg.updateLoggerAddr(value).then(res => dispatch(setIGBAction(res)))
+    case 'collector_port':
+        return cfg.updateLoggerPort(value).then(res => dispatch(setIGBAction(res)))
     }
 }

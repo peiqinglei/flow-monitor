@@ -25,10 +25,10 @@
             &:after {
                 border-radius: 11px;
                 position: absolute;
-                left: -9px;
-                top: 1px;
-                height: 23px;
-                width: 23px;
+                left: -8px;
+                top: 2px;
+                height: 21px;
+                width: 21px;
                 content: ' ';
                 background: #fff;
                 border: 1px solid #d2d2d2;
@@ -37,9 +37,11 @@
             &:checked {
                 &::before {
                     background: @green;
+                    border-color: @green;
                 }
                 &::after {
-                    left: 14px;
+                    left: 15px;
+                    border-color: #fff;
                 }
             }
         }

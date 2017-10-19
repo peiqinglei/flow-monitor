@@ -18,4 +18,5 @@ cp -rf ../node_modules/uglify-js ./node_modules/
 cp -rf ../node_modules/source-map* ./node_modules/
 cp -rf ../node_modules/etag ./node_modules/
 cp -rf ../node_modules/oscfg ./node_modules/
+cp -rf ../node_modules/ini ./node_modules/
 cd ..

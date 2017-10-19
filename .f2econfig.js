@@ -38,7 +38,7 @@ module.exports = {
     ],
     bundles: [
         {
-            test: /^src\/(?!(require|index|workers)).*$/,
+            test: /^src\/(?!(require|index|workers|bootstrap-datetimepicker)).*$/,
             dist: 'src/index.js'
         }
     ],

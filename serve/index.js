@@ -13,10 +13,17 @@ route.on('os.runtime', ServerSent({
 route.on('sys.runtime', ServerSent(require('./action/sys/runtime.js')))
 
 route.on('cfg.base', JsonOut(require('./action/cfg/time-zone')))
+route.on('cfg.igb', JsonOut(require('./action/cfg/vm_igb')))
 
 // BrowserRouter
 route.on(/^[\w\/]*$/, () => 'index.html')
 
-module.exports = function (pathname, req, resp, memory) {
-    return route.execute(pathname, req, resp, memory)
+module.exports = (pathname, req, resp, memory) => {
+    try {
+        return route.execute(pathname, req, resp, memory)
+    } catch (error) {
+        console.trace(error)
+        JsonOut(() => ({error: error.toString()}))(req, resp)
+        return false
+    }
 }

@@ -3,8 +3,7 @@ import moment from '../../moment'
 import {
     Row, Col, Form,
     Panel, Button, FormGroup,
-    ControlLabel, FormControl,
-    Checkbox, Popover, OverlayTrigger
+    ControlLabel, FormControl, Checkbox
 } from 'react-bootstrap'
 import DatePicker from '../widget/DatePicker'
 
