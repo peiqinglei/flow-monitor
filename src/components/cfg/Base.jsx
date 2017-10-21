@@ -40,7 +40,7 @@ export default class extends React.Component {
         const { time, zoneTree = [], zone, ntp } = this.props
         const datetime = time ? moment(time).format(FMT) : ''
 
-        return <Panel>
+        return <Panel header="基础配置">
             <Col lg={7} lgOffset={2}>
                 <Form horizontal onSubmit={e => e.preventDefault()}>
                     <FormGroup controlId="ntp">

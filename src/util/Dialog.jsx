@@ -6,26 +6,30 @@ class Dialog extends Component {
     constructor (props) {
         super(props)
         this.state = {
-            visible: false
+            visible: true
         }
     }
-    componentWillReceiveProps ({visible}) {
+    componentWillReceiveProps (nextProps, prevProps) {
         this.setState({
-            visible
+            visible: nextProps.visible
         })
     }
     close = (ensure, index) => {
+        const t = this
         const {
             resolve,
             reject
-        } = this.props
+        } = t.props
         const result = ensure ? resolve(index) : reject(index)
         if (result === false) {
             return
         }
-        this.setState({
-            visible: false
-        })
+
+        setTimeout(function () {
+            t.setState({
+                visible: false
+            })
+        }, 100)
     };
     render () {
         const {visible} = this.state
@@ -52,10 +56,14 @@ class Dialog extends Component {
 const holder = document.createElement('div')
 document.body.appendChild(holder)
 
-const dialog = (info, options) => new Promise((resolve, reject) => {
+const dialog = (info, options) => new Promise((resolve, reject = () => {}) => {
     const {
         title = '提示'
     } = options || {}
     ReactDOM.render(<Dialog title={title} info={info} visible resolve={resolve} reject={reject} {...options}/>, holder)
 })
 export const alert = dialog
+export const confirm = (info, options) => dialog(info, Object.assign({
+    title: '警告',
+    buttons: ['确定', '取消']
+}, options))

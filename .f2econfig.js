@@ -1,11 +1,8 @@
 const { argv } = process
 const build = argv[argv.length - 1] === 'build'
-const onRoute = !build && require('./serve/index')
+const path = require('path')
 
-// Mock 启动
-!build && require('./serve/action/sys/mock/mock.js')
-
-module.exports = {
+let config = {
     port: 33533,
     livereload: !build,
     build,
@@ -27,7 +24,6 @@ module.exports = {
         // 单文件超过20K 不进行压缩
         return data.toString().length < 20 * 1024
     },
-    onRoute,
     include: /\$require\(["'\s]*([^"'\s]+)["'\s]*\)/g,
     // app: 'static',
     middlewares: [
@@ -44,3 +40,14 @@ module.exports = {
     ],
     output: require('path').join(__dirname, './dist')
 }
+if (!build) {
+    config.onRoute = require('./serve/index')
+    // Mock 启动
+    require('./serve/action/sys/mock/mock.js')
+    config.paths = {
+        vm_igb: path.join(__dirname, './serve/action/cfg/vm_igb.ini'),
+        sys_runtime: path.join(__dirname, './serve/action/sys/runtime.log')
+    }
+}
+
+module.exports = config

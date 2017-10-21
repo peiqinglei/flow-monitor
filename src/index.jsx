@@ -17,6 +17,7 @@ import Dashboard from './components/Dashboard'
 import OSInfo from './containers/os/OSInfo'
 import CfgBase from './containers/cfg/Base'
 import CfgRuntime from './containers/cfg/Runtime'
+import CfgOP from './containers/cfg/OP'
 import SysRuntimeNet from './containers/sys/RuntimeNet'
 import RuntimeWorker from './containers/sys/RuntimeWorker'
 import RuntimeLogger from './containers/sys/RuntimeLogger'
@@ -43,6 +44,7 @@ ReactDOM.render(
                     <Left />
                     <div className="container">
                         <Switch>
+                            <Route path="/cfg/op" exact component={CfgOP}/>
                             <Route path="/cfg/run" exact component={CfgRuntime}/>
                             <Route path="/cfg/base" exact component={CfgBase}/>
                             <Route path="/sys/run/logger" exact component={RuntimeLogger}/>

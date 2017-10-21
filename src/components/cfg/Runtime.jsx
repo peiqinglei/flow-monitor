@@ -1,5 +1,4 @@
 import React from 'react'
-import moment from '../../moment'
 import {
     Row, Col, Form,
     Panel, Button, FormGroup,
@@ -28,7 +27,7 @@ export default class extends React.Component {
             updateLoggerPort = (v) => {}
         } = this.props
 
-        return <Panel>
+        return <Panel header="运行配置">
             <Col lg={7} lgOffset={2}>
                 <Form horizontal onSubmit={e => e.preventDefault()}>
                     <FormGroup controlId="inline_mode">

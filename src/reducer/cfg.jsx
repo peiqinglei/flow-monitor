@@ -1,18 +1,23 @@
 import { createAction } from '../redux-actions'
-import { cfg } from './api'
+import { cfg, misc } from './api'
+import { alert, confirm } from '../util/Dialog'
+import React from 'react'
 
 const SET_TIMEZONE_INFO = 'SET_TIMEZONE_INFO'
 const SET_IGB_INFO = 'SET_IGB_INFO'
+const SET_OP_INFO = 'SET_OP_INFO'
 
 export default (state, action) => {
     const {
         payload, type
     } = action
     switch (type) {
-    case SET_TIMEZONE_INFO:
-        return state.setIn(['cfg.timeZone'], payload)
-    case SET_IGB_INFO:
-        return state.setIn(['cfg.igb'], payload)
+        case SET_TIMEZONE_INFO:
+            return state.setIn(['cfg.timeZone'], payload)
+        case SET_IGB_INFO:
+            return state.setIn(['cfg.igb'], payload)
+        case SET_OP_INFO:
+            return state.setIn(['cfg.op'], payload)
     }
 }
 
@@ -67,4 +72,65 @@ export const updateIGB = (name, value) => (dispatch) => {
     case 'collector_port':
         return cfg.updateLoggerPort(value).then(res => dispatch(setIGBAction(res)))
     }
+}
+
+const setOPAction = createAction(SET_OP_INFO)
+export const setOP = () => dispatch => {
+    cfg.op().then(info => dispatch(setOPAction(info)))
+}
+export const updateOP = (name, value) => (dispatch) => {
+    switch (name) {
+    case 'address':
+        return cfg.updateAddress(value).then(res => dispatch(setOPAction(res)))
+    case 'netmask':
+        return cfg.updateNetmask(value).then(res => dispatch(setOPAction(res)))
+    case 'gateway':
+        return cfg.updateGateway(value).then(res => dispatch(setOPAction(res)))
+    case 'dns':
+        return cfg.updateDNS(value).then(res => dispatch(setOPAction(res)))
+    }
+}
+const location = window.location
+export const changePass = password => {
+    if (!password) {
+        alert('修改密码不能为空！')
+        return
+    }
+    if (password.length < 6) {
+        alert('修改密码长度不小于6！')
+        return
+    }
+    cfg.changePass(password).then(res => {
+        alert('修改成功！').always(() => location.reload())
+    })
+}
+const waitingForRestart = (address) => {
+    const heartbreaksUrl = location.href.replace(/^(https?:\/\/)[^\\\/:]+(:\d+)?(.*?)$/, `$1${address}$2/heartbreaks`)
+    const href = location.href.replace(/^(https?:\/\/)[^\\\/:]+/, `$1${op.address}`)
+    const loop = function loop () {
+        misc.heartbreaks(heartbreaksUrl)
+            .yes(() => {
+                location.href = href
+            })
+            .no(() => {
+                setTimeout(loop, 5000)
+            })
+    }
+    return loop
+}
+export const restart = () => (dispatch, getState) => {
+    const op = getState().getIn(['cfg.op'])
+    if (!op || !op.address) {
+        alert('IP 地址错误！')
+        return
+    }
+    confirm(<div><h2>确定重启服务？ </h2><i>重启过程中不要刷新页面，以便系统自动检测重启状态...</i></div>)
+        .yes(() => {
+            cfg.restart().then(res => {
+                alert(<h2><i class="fa fa-spinner fa-spin fa-3x fa-fw"></i><span>重启中</span></h2>, {
+                    buttons: []
+                })
+                setTimeout(waitingForRestart(op.address), 5000)
+            })
+        })
 }

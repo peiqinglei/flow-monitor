@@ -20,11 +20,16 @@ module.exports = class {
         this.yes = (fn1, fn2) => {
             resolveList.push(fn)
             fn2 && rejectList.push(fn)
+            return this
         }
-        this.no = fn => rejectList.push(fn)
+        this.no = fn => {
+            rejectList.push(fn)
+            return this
+        }
         this.always = fn => {
             resolveList.push(fn)
             rejectList.push(fn)
+            return this
         }
     }
 }
