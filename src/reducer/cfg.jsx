@@ -78,7 +78,7 @@ const setOPAction = createAction(SET_OP_INFO)
 export const setOP = () => dispatch => {
     cfg.op().then(info => dispatch(setOPAction(info)))
 }
-export const updateOP = (name, value) => (dispatch) => {
+export const updateOP = (name, value = '') => (dispatch) => {
     switch (name) {
     case 'address':
         return value && cfg.updateAddress(value).then(res => dispatch(setOPAction(res)))

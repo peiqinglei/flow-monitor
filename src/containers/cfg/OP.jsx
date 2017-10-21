@@ -11,7 +11,7 @@ const mapDispatchToProps = (dispatch) => {
         updateAddress: (v) => dispatch(updateOP('address', v)),
         updateNetmask: (v) => dispatch(updateOP('netmask', v)),
         updateGateway: (v) => dispatch(updateOP('gateway', v)),
-        updateDNS: (v) => dispatch(updateOP('nds', v)),
+        updateDNS: (v) => dispatch(updateOP('dns', v)),
         restart: () => dispatch(restart()),
         changePass
     }
