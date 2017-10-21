@@ -5,6 +5,8 @@ const AuthorizeConfigFile = path.join(__dirname, '../../../flow-authorization')
 let authorization = btoa('admin:admin')
 if (!existsSync(AuthorizeConfigFile)) {
     writeFileSync(AuthorizeConfigFile, authorization)
+} else {
+    authorization = readFileSync(AuthorizeConfigFile).toString()
 }
 
 exports.authorize = (req, resp) => {
@@ -20,7 +22,7 @@ exports.authorize = (req, resp) => {
     }
 }
 exports.changePass = (req, resp) => {
-    if (req.post) {
+    if (req.method.toUpperCase() === 'POST') {
         authorization = btoa(`admin:${req.body}`)
         writeFileSync(AuthorizeConfigFile, authorization)
         return {

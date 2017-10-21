@@ -7,19 +7,20 @@ module.exports = class {
         
         setTimeout(function () {
             fn(res => {
+                console.log('resolveList', resolveList)
                 resolveList.map(resolve => {
                     res = resolve(res)
                 })
             }, err => {
-                resolveList.map(resolve => {
-                    err = resolve(err) || err
+                rejectList.map(reject => {
+                    err = reject(err) || err
                 })
             })
         }, 0)
 
         this.yes = (fn1, fn2) => {
-            resolveList.push(fn)
-            fn2 && rejectList.push(fn)
+            resolveList.push(fn1)
+            fn2 && rejectList.push(fn2)
             return this
         }
         this.no = fn => {

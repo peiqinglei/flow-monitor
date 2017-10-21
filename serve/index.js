@@ -1,4 +1,5 @@
 const JsonOut = require('./misc/JsonOut.js')
+const JsonpOut = require('./misc/JsonpOut.js')
 const ServerSent = require('./misc/ServerSent.js')
 const { authorize, changePass } = require('./misc/Authorization.js')
 const Route = require('./Route')
@@ -17,6 +18,7 @@ route.on('cfg.base', JsonOut(require('./action/cfg/time-zone')))
 route.on('cfg.igb', JsonOut(require('./action/cfg/vm_igb')))
 route.on('cfg.op', JsonOut(require('./action/cfg/op')))
 route.on('cfg.changePass', JsonOut(changePass))
+route.on('heartbreaks', JsonpOut(() => ({success: true})))
 
 // BrowserRouter
 route.on(/^[\w\/]*$/, (req, resp) => {

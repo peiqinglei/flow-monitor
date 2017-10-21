@@ -20,7 +20,7 @@ class Dialog extends Component {
             resolve,
             reject
         } = t.props
-        const result = ensure ? resolve(index) : reject(index)
+        const result = ensure === true ? resolve(index) : reject(index)
         if (result === false) {
             return
         }
@@ -60,6 +60,7 @@ const dialog = (info, options) => new Promise((resolve, reject = () => {}) => {
     const {
         title = '提示'
     } = options || {}
+    console.log(resolve, reject)
     ReactDOM.render(<Dialog title={title} info={info} visible resolve={resolve} reject={reject} {...options}/>, holder)
 })
 export const alert = dialog

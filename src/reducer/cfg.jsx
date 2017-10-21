@@ -81,11 +81,11 @@ export const setOP = () => dispatch => {
 export const updateOP = (name, value) => (dispatch) => {
     switch (name) {
     case 'address':
-        return cfg.updateAddress(value).then(res => dispatch(setOPAction(res)))
+        return value && cfg.updateAddress(value).then(res => dispatch(setOPAction(res)))
     case 'netmask':
-        return cfg.updateNetmask(value).then(res => dispatch(setOPAction(res)))
+        return value && cfg.updateNetmask(value).then(res => dispatch(setOPAction(res)))
     case 'gateway':
-        return cfg.updateGateway(value).then(res => dispatch(setOPAction(res)))
+        return value && cfg.updateGateway(value).then(res => dispatch(setOPAction(res)))
     case 'dns':
         return cfg.updateDNS(value).then(res => dispatch(setOPAction(res)))
     }
@@ -106,15 +106,13 @@ export const changePass = password => {
 }
 const waitingForRestart = (address) => {
     const heartbreaksUrl = location.href.replace(/^(https?:\/\/)[^\\\/:]+(:\d+)?(.*?)$/, `$1${address}$2/heartbreaks`)
-    const href = location.href.replace(/^(https?:\/\/)[^\\\/:]+/, `$1${op.address}`)
+    const href = location.href.replace(/^(https?:\/\/)[^\\\/:]+/, `$1${address}`)
     const loop = function loop () {
-        misc.heartbreaks(heartbreaksUrl)
-            .yes(() => {
-                location.href = href
-            })
-            .no(() => {
-                setTimeout(loop, 5000)
-            })
+        misc.heartbreaks(heartbreaksUrl, () => {
+            location.href = href
+        }, () => {
+            setTimeout(loop, 3000)
+        })
     }
     return loop
 }
@@ -126,11 +124,12 @@ export const restart = () => (dispatch, getState) => {
     }
     confirm(<div><h2>确定重启服务？ </h2><i>重启过程中不要刷新页面，以便系统自动检测重启状态...</i></div>)
         .yes(() => {
-            cfg.restart().then(res => {
-                alert(<h2><i class="fa fa-spinner fa-spin fa-3x fa-fw"></i><span>重启中</span></h2>, {
+            cfg.restart()
+            setTimeout(function () {
+                alert(<h2><i className="fa fa-spinner fa-spin fa-3x fa-fw"></i><span>重启中</span></h2>, {
                     buttons: []
                 })
-                setTimeout(waitingForRestart(op.address), 5000)
-            })
+                waitingForRestart(op.address)()
+            }, 3000)
         })
 }

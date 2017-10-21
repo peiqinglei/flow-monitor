@@ -1,5 +1,4 @@
 import $ from 'jquery'
-import Promise from '../util/Promise'
 
 exports.os = {
     info: () => fetch('/os.info').then(res => res.json()),
@@ -58,12 +57,13 @@ exports.cfg = {
 }
 
 exports.misc = {
-    heartbreaks: (url) => new Promise(resolve => {
+    heartbreaks: (url, success, error) => {
         $.ajax({
             timeout: 5000,
             url,
             dataType: 'jsonp',
-            success: resolve
-        })    
-    })
+            success,
+            error
+        })
+    }
 }

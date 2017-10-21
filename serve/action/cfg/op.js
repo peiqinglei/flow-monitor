@@ -1,8 +1,12 @@
 const {
     networkInterface
 } = require('oscfg')
+const plantform = require('os').platform()
+const { execSync } = require('child_process')
 const base = networkInterface
-
+const shutdown = function () {
+    execSync(`shutdown -r ${plantform === 'win32' ? '' : 'now'}`)
+};
 const getCfg = () => {
     return {
         address: base.getAddress(),
@@ -37,7 +41,7 @@ const setCfg = (req, resp) => {
 const execute = (req, resp) => {
     switch (req.method.toUpperCase()) {
         case 'HEAD':
-            base.shutdown()
+            shutdown()
             return {
                 shutdown: true
             }
