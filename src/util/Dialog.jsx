@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import ReactDOM from 'react-dom'
 import { Modal, Button } from 'react-bootstrap'
-import Promise from '../util/Promise'
+import PPromise from '../util/Promise'
 class Dialog extends Component {
     constructor (props) {
         super(props)
@@ -56,11 +56,10 @@ class Dialog extends Component {
 const holder = document.createElement('div')
 document.body.appendChild(holder)
 
-const dialog = (info, options) => new Promise((resolve, reject = () => {}) => {
+const dialog = (info, options) => new PPromise((resolve, reject = () => {}) => {
     const {
         title = '提示'
     } = options || {}
-    console.log(resolve, reject)
     ReactDOM.render(<Dialog title={title} info={info} visible resolve={resolve} reject={reject} {...options}/>, holder)
 })
 export const alert = dialog

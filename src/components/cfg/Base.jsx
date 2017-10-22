@@ -59,9 +59,9 @@ export default class extends React.Component {
                     <FormGroup controlId="time">
                         <Col componentClass={ControlLabel} sm={2}>服务器时间</Col>
                         <Col sm={10} style={{width: 'auto'}} >
-                            {ntp ?
-                                <input className="form-control" value={datetime} readOnly/> :
-                                <DatePicker className="form-control" value={datetime} onChange={this.changeTime}/>
+                            {ntp
+                                ? <input className="form-control" value={datetime} readOnly/>
+                                : <DatePicker className="form-control" value={datetime} onChange={this.changeTime}/>
                             }</Col>
                     </FormGroup>
                 </Form>

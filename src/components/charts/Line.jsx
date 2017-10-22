@@ -58,11 +58,8 @@ export default class extends React.Component {
             })
         }
     }
-    onClick = () => {
-        alert('hhe').always((e) => console.log(e))
-    } 
     render () {
         const { height = 300 } = this.props
-        return <ReactEcharts option={this.getOption()} style={{height}} onClick={this.onClick}/>
+        return <ReactEcharts option={this.getOption()} style={{height}}/>
     }
 }

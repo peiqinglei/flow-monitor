@@ -12,7 +12,7 @@ exports.cfg = {
     updateTime: (time) => fetch(`/cfg.base?time=${time}`, {method: 'POST'}).then(res => res.json()),
     updateZone: (zone) => fetch(`/cfg.base?zone=${zone}`, {method: 'POST'}).then(res => res.json()),
     updateNTP: (ntp) => fetch(`/cfg.base?ntp=${ntp}`, {method: 'POST'}).then(res => res.json()),
-    
+
     igb: () => fetch('/cfg.igb').then(res => res.json()),
     updateWorkerMod: inline_mode => fetch('/cfg.igb', {
         method: 'POST',

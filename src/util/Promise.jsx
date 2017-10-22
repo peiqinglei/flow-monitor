@@ -4,10 +4,9 @@ module.exports = class {
     constructor (fn) {
         let resolveList = []
         let rejectList = []
-        
+
         setTimeout(function () {
             fn(res => {
-                console.log('resolveList', resolveList)
                 resolveList.map(resolve => {
                     res = resolve(res)
                 })

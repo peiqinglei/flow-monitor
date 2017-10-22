@@ -12,12 +12,12 @@ export default (state, action) => {
         payload, type
     } = action
     switch (type) {
-        case SET_TIMEZONE_INFO:
-            return state.setIn(['cfg.timeZone'], payload)
-        case SET_IGB_INFO:
-            return state.setIn(['cfg.igb'], payload)
-        case SET_OP_INFO:
-            return state.setIn(['cfg.op'], payload)
+    case SET_TIMEZONE_INFO:
+        return state.setIn(['cfg.timeZone'], payload)
+    case SET_IGB_INFO:
+        return state.setIn(['cfg.igb'], payload)
+    case SET_OP_INFO:
+        return state.setIn(['cfg.op'], payload)
     }
 }
 
@@ -53,7 +53,6 @@ export const updateTimeZone = (name, value) => (dispatch, getState) => {
         break
     }
 }
-
 
 const setIGBAction = createAction(SET_IGB_INFO)
 export const setIGB = () => dispatch => {

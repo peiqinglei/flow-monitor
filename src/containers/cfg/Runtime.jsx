@@ -12,7 +12,7 @@ const mapDispatchToProps = (dispatch) => {
         updateWorkerNum: (v) => dispatch(updateIGB('worker_num', v)),
         updateSessionNum: (v) => dispatch(updateIGB('session_num', v)),
         updateLoggerAddr: (v) => dispatch(updateIGB('collector_address', v)),
-        updateLoggerPort: (v) => dispatch(updateIGB('collector_port', v)),
+        updateLoggerPort: (v) => dispatch(updateIGB('collector_port', v))
     }
 }
 

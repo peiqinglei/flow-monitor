@@ -6,7 +6,7 @@ import {
 } from 'react-bootstrap'
 
 const FORM_STYLE = {maxWidth: 200}
-const WORKER_MOD = ["总线模式", "其他模式"]
+const WORKER_MOD = ['总线模式', '其他模式']
 export default class extends React.Component {
     constructor (props) {
         super(props)
