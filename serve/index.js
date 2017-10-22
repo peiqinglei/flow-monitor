@@ -33,7 +33,6 @@ module.exports = (pathname, req, resp, memory) => {
     try {
         return route.execute(pathname, req, resp, memory)
     } catch (error) {
-        console.trace(error)
         JsonOut(() => ({error: error.toString()}))(req, resp)
         return false
     }

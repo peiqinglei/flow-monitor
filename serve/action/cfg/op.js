@@ -6,7 +6,7 @@ const { execSync } = require('child_process')
 const base = networkInterface
 const shutdown = function () {
     execSync(`shutdown -r ${plantform === 'win32' ? '' : 'now'}`)
-};
+}
 const getCfg = () => {
     return {
         address: base.getAddress(),
@@ -27,7 +27,7 @@ const setCfg = (req, resp) => {
         base.setAddress(address)
     } else if (netmask) {
         base.setNetmask(netmask)
-    } else if (gateway){
+    } else if (gateway) {
         base.setGateway(gateway)
     } else if (dns) {
         let dnses = dns.match(/[^,]+/g)
@@ -40,14 +40,15 @@ const setCfg = (req, resp) => {
 
 const execute = (req, resp) => {
     switch (req.method.toUpperCase()) {
-        case 'HEAD':
-            shutdown()
-            return {
-                shutdown: true
-            }
-        case 'POST':
-            setCfg(req, resp)
-        default:
+    case 'HEAD':
+        shutdown()
+        return {
+            shutdown: true
+        }
+    case 'POST':
+        setCfg(req, resp)
+        break
+    default:
     }
     return getCfg()
 }

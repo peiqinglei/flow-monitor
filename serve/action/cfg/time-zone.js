@@ -22,7 +22,7 @@ const setCfg = (req, resp) => {
         time.setTime(Number(data.time))
     } else if (data.zone) {
         zone.setZone(data.zone)
-    } else if (data.ntp){
+    } else if (data.ntp) {
         ntp.setEnabled(data.ntp === 'true')
     }
     return {

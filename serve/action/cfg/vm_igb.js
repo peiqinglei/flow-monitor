@@ -11,6 +11,7 @@ const execute = (req, resp) => {
     case 'POST':
         const data = JSON.parse(req.body)
         fs.writeFileSync(fileName, ini.stringify(_.merge(iniJSON, data)))
+        break
     default:
     }
     return iniJSON

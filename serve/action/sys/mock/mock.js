@@ -18,11 +18,13 @@ const ACTION_IDS = '1'.repeat(ACTION_SIZE).split('').map((one, i) => Math.random
 const random = (n = 1024) => Math.random() * n | 0
 const randomPlus = (k, n = 1024) => {
     let base = dataSet[k] || 0
-    return dataSet[k] = base + (Math.random() * n | 0)
+    dataSet[k] = base + (Math.random() * n | 0)
+    return dataSet[k]
 }
 const peek = (k, n) => {
     let base = dataSet[k] || 0
-    return dataSet[k] = Math.max(base, n)
+    dataSet[k] = Math.max(base, n)
+    return dataSet[k]
 }
 
 const render = function render () {
@@ -174,7 +176,7 @@ const render = function render () {
         let drop_bytes = randomPlus('drop_bytes-' + i, 1024 * 1024)
         lines.push(`act: ${ACTION_IDS[i]} ${report_messages} ${report_bytes} ${drop_messages} ${drop_bytes}`)
     }
-    
+
     let sum_peek_packet_buffer_size = peek('sum_peek_packet_buffer_size', random(1024 * THREAD_SIZE))
     let sum_peek_session_num = peek('sum_peek_session_num', random(1024 * THREAD_SIZE))
     let sum_peek_tcp_session_num = peek('sum_peek_tcp_session_num', random(1024 * THREAD_SIZE))
@@ -184,7 +186,7 @@ const render = function render () {
     let sum_peek_ssl_session_num = peek('sum_peek_ssl_session_num', random(1024 * THREAD_SIZE))
     let sum_peek_dns_session_num = peek('sum_peek_dns_session_num', random(1024 * THREAD_SIZE))
     let sum_peek_message_queue_size = peek('sum_peek_message_queue_size', random(1024 * LOGGER_SIZE))
-    lines.push(`top: ${sum_peek_packet_buffer_size} ${sum_peek_session_num} ${sum_peek_tcp_session_num} ${sum_peek_tcp_out_of_order_num} ${sum_peek_udp_session_num} ${sum_peek_http_session_num} ${sum_peek_ssl_session_num} ${sum_peek_dns_session_num} ${sum_peek_message_queue_size}`) 
+    lines.push(`top: ${sum_peek_packet_buffer_size} ${sum_peek_session_num} ${sum_peek_tcp_session_num} ${sum_peek_tcp_out_of_order_num} ${sum_peek_udp_session_num} ${sum_peek_http_session_num} ${sum_peek_ssl_session_num} ${sum_peek_dns_session_num} ${sum_peek_message_queue_size}`)
     fs.writeFile(fileName, lines.join('\n'), function () {
         setTimeout(render, 1000)
     })
