@@ -41,13 +41,9 @@ let config = {
     output: require('path').join(__dirname, './dist')
 }
 if (!build) {
-    config.onRoute = require('./serve/index')
     // Mock 启动
     require('./serve/action/sys/mock/mock.js')
-    config.paths = {
-        vm_igb: path.join(__dirname, './serve/action/cfg/vm_igb.ini'),
-        sys_runtime: path.join(__dirname, './serve/action/sys/runtime.log')
-    }
+    Object.assign(config, require('./serve/index'))
 }
 
 module.exports = config

@@ -1,6 +1,7 @@
 rm -rf ./dist
 npm run build
 cp .f2econfig.serve.js ./dist/.f2econfig.js
+cp ./config.serve.js ./dist/config.js
 cp -rf ./serve ./dist
 cd ./dist/
 mkdir node_modules
@@ -19,4 +20,5 @@ cp -rf ../node_modules/source-map* ./node_modules/
 cp -rf ../node_modules/etag ./node_modules/
 cp -rf ../node_modules/oscfg ./node_modules/
 cp -rf ../node_modules/ini ./node_modules/
+cp -rf ../node_modules/formidable ./node_modules/
 cd ..

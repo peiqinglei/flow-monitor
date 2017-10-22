@@ -4,6 +4,7 @@ import {
     Panel, Button, FormGroup,
     ControlLabel, FormControl, Checkbox
 } from 'react-bootstrap'
+import Uploader from '../widget/Uploader'
 
 const FORM_STYLE = {maxWidth: 200, float: 'left'}
 export default class extends React.Component {
@@ -68,6 +69,12 @@ export default class extends React.Component {
                         <Col sm={10}>
                             <input className="form-control" style={FORM_STYLE} type="password" ref="authorization"/>
                             <Button bsStyle="primary" style={{marginLeft: 15}} onClick={() => this.changePassword()}>修改</Button>
+                        </Col>
+                    </FormGroup>
+                    <FormGroup controlId="updateFlowpp">
+                        <Col componentClass={ControlLabel} sm={2}>更新Flowpp</Col>
+                        <Col sm={10}>
+                            <Uploader url="/update.flowpp"/>
                         </Col>
                     </FormGroup>
                     <FormGroup controlId="shutdown">

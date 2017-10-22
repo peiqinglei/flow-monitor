@@ -29,9 +29,31 @@ route.on(/^[\w\/]*$/, (req, resp) => {
     }
 })
 
-module.exports = (pathname, req, resp, memory) => {
+exports.onRoute = (pathname, req, resp, memory) => {
     try {
         return route.execute(pathname, req, resp, memory)
+    } catch (error) {
+        JsonOut(() => ({error: error.toString()}))(req, resp)
+        return false
+    }
+}
+
+// if need update
+const beforeRoute = new Route()
+const { updateFlowpp, updateProps, updateWeb } = require('./action/cfg/update.js')
+beforeRoute.on('update.flowpp', JsonOut(updateFlowpp))
+beforeRoute.on('update.props', JsonOut(updateProps))
+beforeRoute.on('update.web', JsonOut(updateWeb))
+exports.beforeRoute = (pathname, req, resp, memory) => {
+    if (!/^update\./.test(pathname)) {
+        return
+    }
+    try {
+        if (authorize(req, resp)) {
+            return beforeRoute.execute(pathname, req, resp, memory)
+        } else {
+            return false
+        }
     } catch (error) {
         JsonOut(() => ({error: error.toString()}))(req, resp)
         return false

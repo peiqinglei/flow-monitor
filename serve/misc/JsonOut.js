@@ -4,6 +4,15 @@ module.exports = (fn) => (req, resp) => {
         'Content-Encoding': 'gzip',
         'Content-Type': 'application/json; charset=utf-8'
     })
-    resp.end(zlib.gzipSync(JSON.stringify(fn(req, resp))))
+    const res = fn(req, resp)
+    if (res instanceof Promise) {
+        res.then(data => {
+            resp.end(zlib.gzipSync(JSON.stringify(data)))
+        }).catch(e => {
+            resp.end(zlib.gzipSync(e.toString()))
+        })
+    } else {
+        resp.end(zlib.gzipSync(JSON.stringify(res)))
+    }
     return false
 }
