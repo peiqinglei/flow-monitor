@@ -60,8 +60,8 @@ export default class extends React.Component {
                         <Col componentClass={ControlLabel} sm={2}>服务器时间</Col>
                         <Col sm={10} style={{width: 'auto'}} >
                             {ntp
-                                ? <input className="form-control" value={datetime} readOnly/>
-                                : <DatePicker className="form-control" value={datetime} onChange={this.changeTime}/>
+                                ? <input className="form-control" defaultValue={datetime} readOnly/>
+                                : <DatePicker className="form-control" defaultValue={datetime} onChange={this.changeTime}/>
                             }</Col>
                     </FormGroup>
                 </Form>
