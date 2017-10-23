@@ -77,6 +77,18 @@ export default class extends React.Component {
                             <Uploader url="/update.flowpp"/>
                         </Col>
                     </FormGroup>
+                    <FormGroup controlId="updateProp">
+                        <Col componentClass={ControlLabel} sm={2}>更新规则</Col>
+                        <Col sm={10}>
+                            <Uploader url="/update.props"/>
+                        </Col>
+                    </FormGroup>
+                    <FormGroup controlId="updateWeb">
+                        <Col componentClass={ControlLabel} sm={2}>更新WEB</Col>
+                        <Col sm={10}>
+                            <Uploader url="/update.web"/>
+                        </Col>
+                    </FormGroup>
                     <FormGroup controlId="shutdown">
                         <Col componentClass={ControlLabel} sm={2}>重启服务</Col>
                         <Col sm={10} >
