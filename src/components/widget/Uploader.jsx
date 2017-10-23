@@ -1,5 +1,5 @@
 import React from 'react'
-import { ProgressBar } from 'react-bootstrap'
+import { Button, Glyphicon, ProgressBar } from 'react-bootstrap'
 
 export default class extends React.Component {
     constructor (props) {
@@ -32,13 +32,11 @@ export default class extends React.Component {
         }
         let formData = new FormData()
         formData.append('uploadfile', e.target.files[0])
-        xhr.upload.addEventListener('process', function (e) {
-            let done = e.position || e.loaded
-            let total = e.totalSize || e.total
+        xhr.upload.onprogress = function (e) {
             t.setState({
-                now: done * 100 / total
+                now: e.loaded * 100 / e.total
             })
-        })
+        }
         xhr.open('POST', url, true)
         xhr.send(formData)
         t.setState({
@@ -51,11 +49,14 @@ export default class extends React.Component {
             uploading,
             now
         } = t.state
+        const {
+            loop = false
+        } = this.props
 
         return uploading
             ? <ProgressBar active now={now}/>
-            : <label className="btn btn-primary btn-uploader">
+            : (loop || !now ? <label className="btn btn-primary btn-uploader">
                 <input type="file" style={{visibility: 'hidden'}} onChange={t.onChange}/>
-            </label>
+            </label> : <Button bsStyle="success"><Glyphicon glyph="ok"/> OK</Button>)
     }
 }
