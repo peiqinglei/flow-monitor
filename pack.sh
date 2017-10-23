@@ -2,6 +2,7 @@ rm -rf ./dist
 npm run build
 cp .f2econfig.serve.js ./dist/.f2econfig.js
 cp ./config.serve.js ./dist/config.js
+cp ./start.js ./dist/start.js
 cp -rf ./serve ./dist
 cd ./dist/
 mkdir node_modules
@@ -22,3 +23,5 @@ cp -rf ../node_modules/oscfg ./node_modules/
 cp -rf ../node_modules/ini ./node_modules/
 cp -rf ../node_modules/formidable ./node_modules/
 cd ..
+
+tar -cvf ./flow-monitor.tar ./dist

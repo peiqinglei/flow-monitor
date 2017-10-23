@@ -8,6 +8,7 @@
     "start": "f2e start",
     "lint": "eslint --ext .js serve/ --fix & eslint --ext .jsx src/ --fix",
     "build": "f2e build",
+    "deploy": "scp ./flow-monitor.tar flowpp@172.16.1.10:/flowpp/web",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

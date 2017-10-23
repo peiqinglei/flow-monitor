@@ -34,7 +34,7 @@ let config = {
     ],
     bundles: [
         {
-            test: /^src\/(?!(require|index|workers|bootstrap-datetimepicker)).*$/,
+            test: /^src\/(?!(require|index|workers|bootstrap-datetimepicker)).*(\.jsx?)$/,
             dist: 'src/index.js'
         }
     ],
