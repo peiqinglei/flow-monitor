@@ -24,4 +24,4 @@ cp -rf ../node_modules/ini ./node_modules/
 cp -rf ../node_modules/formidable ./node_modules/
 cd ..
 
-tar -cvf ./flow-monitor.tar ./dist
+tar -cvf ./web.tar ./dist

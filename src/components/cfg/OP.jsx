@@ -75,18 +75,21 @@ export default class extends React.Component {
                         <Col componentClass={ControlLabel} sm={2}>更新Flowpp</Col>
                         <Col sm={10}>
                             <Uploader url="/update.flowpp"/>
+                            <i style={{color: '#999', padding: '0 1em'}}>flowpp</i>
                         </Col>
                     </FormGroup>
                     <FormGroup controlId="updateProp">
                         <Col componentClass={ControlLabel} sm={2}>更新规则</Col>
                         <Col sm={10}>
                             <Uploader url="/update.props"/>
+                            <i style={{color: '#999', padding: '0 1em'}}>act_http.dat</i>
                         </Col>
                     </FormGroup>
                     <FormGroup controlId="updateWeb">
                         <Col componentClass={ControlLabel} sm={2}>更新WEB</Col>
                         <Col sm={10}>
                             <Uploader url="/update.web"/>
+                            <i style={{color: '#999', padding: '0 1em'}}>web.tar</i>
                         </Col>
                     </FormGroup>
                     <FormGroup controlId="shutdown">

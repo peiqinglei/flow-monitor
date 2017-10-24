@@ -1,6 +1,6 @@
 {
   "name": "flow-monitor",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "flow monitor on router devices",
   "main": "index.js",
   "scripts": {
@@ -8,7 +8,7 @@
     "start": "f2e start",
     "lint": "eslint --ext .js serve/ --fix & eslint --ext .jsx src/ --fix",
     "build": "f2e build",
-    "deploy": "scp ./flow-monitor.tar flowpp@172.16.1.10:/flowpp/web",
+    "deploy": "scp ./web.tar flowpp@172.16.1.10:/flowpp/web",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
