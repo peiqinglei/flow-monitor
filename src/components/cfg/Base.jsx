@@ -52,7 +52,18 @@ export default class extends React.Component {
                         <Col sm={10} style={{width: 'auto'}} >
                             <FormControl list="zone-list" className="form-control" placeholder={zone} onBlur={this.changeZone}/>
                             <datalist id="zone-list">
-                                {zoneTree.map(({name}, i) => <option value={name} key={name}>{name.toLowerCase()}</option>)}
+                                {zoneTree.map(({name, children}, index) => {
+                                    const n = name
+                                    if (children) {
+                                        return <optgroup label={n} key={n}>
+                                            {children.map(({name}, i) => <option value={`${n}/${name}`} key={name}>
+                                                {n.toLowerCase()}/{name.toLowerCase()}
+                                            </option>)}
+                                        </optgroup>
+                                    } else {
+                                        return <option value={name} key={name}>{name.toLowerCase()}</option>
+                                    }
+                                })}
                             </datalist>
                         </Col>
                     </FormGroup>
